@@ -1,37 +1,35 @@
 import streamlit as st  # type: ignore
 import os
-from llama_index.core import StorageContext, load_index_from_storage, VectorStoreIndex, Settings
+from llama_index.core import StorageContext, VectorStoreIndex, Settings
 from llama_index.core.node_parser import SentenceSplitter
 from llama_index.core import SimpleDirectoryReader
 from llama_index.llms.gemini import Gemini
 from llama_index.embeddings.gemini import GeminiEmbedding
 import google.generativeai as genai
 
-# ✅ Streamlit page config (must be the first command)
+
 st.set_page_config(page_title="Travel Assistant Chatbot", page_icon="✈️")
 
-# ✅ Configure Google Gemini API Key
-os.environ["GOOGLE_API_KEY"] = "AIzaSyDcfQFFM_PEZxJTxH5KmoZANch0qMvZ2VE"  # Replace with your actual API key
+
+os.environ["GOOGLE_API_KEY"] = "AIzaSyDcfQFFM_PEZxJTxH5KmoZANch0qMvZ2VE"  
 genai.configure(api_key=os.environ["GOOGLE_API_KEY"])
 
-# ✅ Initialize LlamaIndex with Gemini
 Settings.llm = Gemini(api_key=os.environ["GOOGLE_API_KEY"])
 Settings.embed_model = GeminiEmbedding(model_name="models/embedding-001")
 Settings.node_parser = SentenceSplitter(chunk_size=800, chunk_overlap=20)
 
-# ✅ Define storage path
 storage_dir = r'C:\Users\user\Desktop\New folder\storage'
 
-# ✅ Ensure storage directory exists
+
 if not os.path.exists(storage_dir):
     os.makedirs(storage_dir)
 
 try:
-    # ✅ Attempt to Load Existing Index
+    
     storage_context = StorageContext.from_defaults(persist_dir=storage_dir)
     index = load_index_from_storage(storage_context)
 except Exception as e:
-    # ✅ Handle missing index scenario
+    
     st.warning(f"📂 No existing index found. Creating a new one... (Error: {e})")
 
     # ✅ Load documents and create new index
