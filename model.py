@@ -18,7 +18,7 @@ Settings.llm = Gemini(api_key=os.environ["GOOGLE_API_KEY"])
 Settings.embed_model = GeminiEmbedding(model_name="models/embedding-001")
 Settings.node_parser = SentenceSplitter(chunk_size=800, chunk_overlap=20)
 
-storage_dir = r'C:\Users\user\Desktop\New folder\storage'
+storage_dir = "storage"
 
 
 if not os.path.exists(storage_dir):
@@ -33,7 +33,7 @@ except Exception as e:
     st.warning(f"📂 No existing index found. Creating a new one... (Error: {e})")
 
     
-    documents = SimpleDirectoryReader(r'C:\Users\user\Desktop\New folder\Data').load_data()
+    documents = SimpleDirectoryReader("Data").load_data()
     index = VectorStoreIndex.from_documents(documents, embed_model=Settings.embed_model)
 
     # ✅ Save the index
