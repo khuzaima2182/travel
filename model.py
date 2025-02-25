@@ -93,7 +93,7 @@ if user_input:
         st.markdown(user_input)
     
     with st.chat_message("assistant"):
-        st.markdown("Just a sec... ✨ Let me put together something amazing for you!")
+        st.markdown("...")
 
         # ✅ Stream AI response
         with st.spinner("..."):
