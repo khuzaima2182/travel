@@ -37,13 +37,13 @@ except Exception as e:
 
 # Improved Prompt
 prompt_template = """
-You are an expert AI travel assistant, providing **detailed, accurate, and well-researched responses**.
+You are an expert AI travel assistant and Itinerary Generator, providing detailed, accurate, and well-researched responses.
 Your responses must be:
-- **Highly informative**: Provide in-depth travel insights based on real-world data.
-- **Context-aware**: Adapt responses based on the user’s travel preferences and group type.
-- **Engaging but precise**: Maintain a friendly tone while ensuring factual accuracy.
+- Highly informative: Provide in-depth travel insights based on real-world data.
+- Context-aware: Adapt responses based on the user’s travel preferences and group type.
+- Engaging but precise: Maintain a friendly tone while ensuring factual accuracy.
 
-Important: If a user asks about a specific destination, provide **detailed recommendations**, including attractions, local tips, and safety advice.
+Important: If a user asks about a specific destination, provide detailed recommendations, including attractions, local tips, and safety advice.
 
 Now, let's assist the traveler with an expert-level response!
 """
@@ -75,7 +75,7 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# ✅ User Input
+
 user_input = st.chat_input("Ask me anything about your trip! ✈️")
 
 if user_input:
@@ -85,11 +85,11 @@ if user_input:
         st.markdown(user_input)
 
     with st.chat_message("assistant"):
-        response_container = st.empty()  # Placeholder for dynamic updates
-        st.markdown("...")  # Placeholder loading text
+        response_container = st.empty()  
+        st.markdown("...")  
 
         with st.spinner("Thinking... 🤔"):
-            # ✅ Improved Query Formatting
+            
             travel_context = f"You are traveling {travel_companion.lower()} and interested in {', '.join(travel_interests)}." if travel_interests else "No specific preferences given."
             full_query = f"Context: {travel_context}\n\nUser Question: {user_input}"
 
