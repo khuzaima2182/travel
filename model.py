@@ -36,11 +36,11 @@ except Exception as e:
     documents = SimpleDirectoryReader("Data").load_data()
     index = VectorStoreIndex.from_documents(documents, embed_model=Settings.embed_model)
 
-    # ✅ Save the index
+    
     index.storage_context.persist(persist_dir=storage_dir)
     st.success("✅ Index created and saved successfully!")
 
-# ✅ Updated System Prompt for a More Humanized Tone
+
 prompt_template = """
 You are a friendly and enthusiastic AI-powered travel guide, eager to make every trip feel exciting and memorable! 
 Your responses should be warm, engaging, and natural—just like a conversation with a well-traveled friend.
@@ -57,11 +57,11 @@ Now, let's help our traveler!
 
 query_engine = index.as_query_engine(llm=Settings.llm, system_prompt=prompt_template, stream_response=True)
 
-# ✅ Streamlit UI
-st.title("🌍 AI Travel Agent")
-st.subheader("Hey there, traveler! Ready to plan your next adventure? ✨")
 
-# ✅ Sidebar for Travel Preferences
+st.title("Concierge AI Travel Agent")
+st.subheader("Hey there, traveler! Ready to plan your next adventure? ")
+
+
 st.sidebar.title("✨ Customize Your Trip")
 
 # Travel Companion
@@ -96,7 +96,7 @@ if user_input:
         st.markdown("Just a sec... ✨ Let me put together something amazing for you!")
 
         # ✅ Stream AI response
-        with st.spinner("🌍 Mapping out the best recommendations for you..."):
+        with st.spinner("..."):
             travel_context = f"You are traveling {travel_companion.lower()} and looking for {', '.join(travel_interests)} experiences." if travel_interests else ""
             full_query = f"{travel_context} {user_input}"
 
