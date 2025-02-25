@@ -66,11 +66,11 @@ travel_interests = st.sidebar.multiselect(
 
 st.sidebar.markdown("---")
 
-# ✅ Chat history
+
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# ✅ Display chat messages
+
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
@@ -97,7 +97,7 @@ if user_input:
                 response_stream = query_engine.query(full_query)
                 bot_reply = ""
 
-                # ✅ Better handling of response streaming
+               
                 if hasattr(response_stream, "response_gen"):
                     for chunk in response_stream.response_gen:
                         bot_reply += chunk
@@ -106,16 +106,15 @@ if user_input:
                     bot_reply = response_stream.response
                     response_container.markdown(bot_reply)
 
-                # ✅ Add a final warm touch to the response
+                #
                 bot_reply += "\n\n🌟 Let me know if you need more details or a different suggestion!"
             except Exception as e:
                 bot_reply = f"❌ Oops, something went wrong: {e}"
                 response_container.markdown(bot_reply)
 
-    # ✅ Store response in chat history
     st.session_state.messages.append({"role": "assistant", "content": bot_reply})
 
-# ✅ Clear Chat Button
+
 if st.sidebar.button("🧹 Clear Chat History"):
     st.session_state.messages = []
     st.rerun()
