@@ -1,6 +1,6 @@
 import streamlit as st  # type: ignore
 import os
-from llama_index.core import StorageContext, VectorStoreIndex, Settings
+from llama_index.core import StorageContext, load_index_from_storage, VectorStoreIndex, Settings
 from llama_index.core.node_parser import SentenceSplitter
 from llama_index.core import SimpleDirectoryReader
 from llama_index.llms.gemini import Gemini
@@ -32,7 +32,7 @@ except Exception as e:
     
     st.warning(f"📂 No existing index found. Creating a new one... (Error: {e})")
 
-    # ✅ Load documents and create new index
+    
     documents = SimpleDirectoryReader(r'C:\Users\user\Desktop\New folder\Data').load_data()
     index = VectorStoreIndex.from_documents(documents, embed_model=Settings.embed_model)
 
